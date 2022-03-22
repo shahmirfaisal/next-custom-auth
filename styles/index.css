@@ -1,0 +1,19 @@
+nav {
+  margin-bottom: 50px;
+}
+
+nav > a {
+  margin-right: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+form > input,
+form > button {
+  padding: 10px;
+  margin-bottom: 10px;
+}
