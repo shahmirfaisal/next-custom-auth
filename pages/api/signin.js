@@ -15,7 +15,6 @@ export default async function handler(req, res) {
     if (!user)
       return res.status(422).json({ message: "Wrong email or password!" });
 
-    console.log(process.env.TOKEN_SECRET);
     const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
       expiresIn: "1d",
     });

@@ -21,8 +21,6 @@ export default function SignupPage() {
         password,
       });
 
-      console.log(res.data);
-
       router.push("/");
     } catch (error) {
       console.log(error);

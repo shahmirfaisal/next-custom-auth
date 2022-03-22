@@ -19,8 +19,6 @@ export default function SigninPage() {
         password,
       });
 
-      console.log(res.data);
-
       router.push("/");
     } catch (error) {
       console.log(error);
