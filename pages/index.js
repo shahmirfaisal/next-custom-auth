@@ -1,16 +1,20 @@
-import { removeCookies } from "cookies-next";
-import Layout from "../components/Layout";
-import getUser from "../lib/getUser";
-import { useRouter } from "next/router";
-import dbConnect from "../lib/dbConnect";
+import { removeCookies } from "cookies-next"
+import Layout from "../components/Layout"
+import getUser from "../lib/getUser"
+import { useRouter } from "next/router"
+import dbConnect from "../lib/dbConnect"
+import { useUser } from "../UserContext"
 
 export default function HomePage(props) {
-  const router = useRouter();
+  const router = useRouter()
+  const user = useUser()
+
+  console.log(user)
 
   const signoutHandler = () => {
-    removeCookies("token");
-    router.push("/signin");
-  };
+    removeCookies("token")
+    router.push("/signin")
+  }
 
   return (
     <Layout>
@@ -21,32 +25,34 @@ export default function HomePage(props) {
       </p>
 
       <p>
-        <strong>Name</strong>: {props.user.name}
+        <strong>Name</strong>: {user.name}
       </p>
       <p>
-        <strong>Email</strong>: {props.user.email}
+        <strong>Email</strong>: {user.email}
       </p>
 
       <button onClick={signoutHandler}>Sign out</button>
     </Layout>
-  );
+  )
 }
 
 export async function getServerSideProps({ req, res }) {
-  await dbConnect();
-  const user = await getUser(req, res);
+  await dbConnect()
+
+  const user = await getUser(req, res)
+
   if (!user) {
     return {
       redirect: {
         permanent: false,
-        destination: "/signin",
+        destination: "/signin"
       },
-      props: {},
-    };
+      props: {}
+    }
   }
   return {
     props: {
-      user,
-    },
-  };
+      user
+    }
+  }
 }
